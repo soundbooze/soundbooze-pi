@@ -1,0 +1,79 @@
+#include <pthread.h>
+
+pthread_t p_anim_t;
+
+void draw (void *data) {
+
+  struct background *background = data;
+
+  cairo_surface_t *surface = window_get_surface(background->window);
+  cairo_t *cr = cairo_create (surface);
+
+  cairo_set_source_rgba(cr, 1, 1, 0, 1);
+
+  cairo_set_line_width(cr, 2);  
+  cairo_move_to(cr, 0, 0);  
+  cairo_line_to(cr, 1920, 1080);
+  cairo_stroke(cr);  
+
+  cairo_move_to(cr, 0, 1080);  
+  cairo_line_to(cr, 1920, 0);
+  cairo_stroke(cr);  
+
+  cairo_destroy (cr);
+  cairo_surface_destroy (surface);
+}
+
+void 
+*bg_animation (void *data)
+{
+  pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+  int rc;
+
+  while(1) { 
+    rc = pthread_mutex_lock(&mutex);
+    draw(data);  
+    rc = pthread_mutex_unlock(&mutex);
+    sleep(5);
+  }
+
+  return NULL;
+
+}
+
+static void
+background_draw(struct widget *widget, void *data)
+{
+
+	struct background *background = data;
+
+  /*
+	cairo_surface_t *surface = window_get_surface(background->window);
+	cairo_t *cr = cairo_create (surface);
+
+	struct rectangle allocation;
+	widget_get_allocation(widget, &allocation);
+
+      cairo_set_source_rgba(cr, 1, 1, 0, 1);
+
+      cairo_set_line_width(cr, 2);  
+      cairo_move_to(cr, 0, 0);  
+      cairo_line_to(cr, allocation.width, allocation.height);
+      cairo_stroke(cr);  
+
+      cairo_move_to(cr, 0, allocation.height);  
+      cairo_line_to(cr, allocation.width, 0);
+      cairo_stroke(cr);  
+
+      cairo_destroy (cr);
+      cairo_surface_destroy (surface);
+  */
+
+  if (pthread_create(&p_anim_t, NULL, bg_animation, data)) {
+    fprintf(stderr, "Error creating thread\n");
+  }
+
+	background->painted = 1;
+	check_desktop_ready(background->window);
+}
+

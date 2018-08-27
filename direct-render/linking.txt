@@ -1,0 +1,21 @@
+
+========================================================================
+xwayland.c (init)
+  client.c
+
+window.c (timer)
+desktop-shell.c
+
+
+--- EGL Linking
+Makefile.am
+
+weston_simple_egl_CFLAGS = $(AM_CFLAGS) $(SIMPLE_EGL_CLIENT_CFLAGS)
+weston_simple_egl_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm
+
+-----
+    | aubio, xtractlib etc/
+    |
+    _
+
+842: weston_desktop_shell_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS)

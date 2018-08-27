@@ -1,0 +1,21 @@
+essentia-2.1
+cli-visualizer
+cava
+opensmile-2.3.0
+spectrogram
+TarsosDSP
+aubio
+libXtract
+gsl
+npth
+liblinear
+libcerf
+
+
+---
+freeglut
+gegl
+glew
+glfw
+
+rebuild cmake after x11 server libs installed

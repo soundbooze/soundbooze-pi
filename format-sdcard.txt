@@ -1,0 +1,8 @@
+ diskpart and press "enter"
+
+
+- "list disk" - shows you the disks that are currently connected to the computer;
+- "select disk X" - substitute x with the number of the disk
+- "clean" - deletes all the data in the SD (you may have to remove and reinsert the card after this step)
+- "create partition primary" - creates a partition in the sd 
+- "format quick" - makes a quick format

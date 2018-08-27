@@ -1,0 +1,21 @@
+desktop-shell.c
+
+## background
+
+background_draw
+
+## Panel
+
+panel_create
+panel_add_clock
+panel_clock_redraw_handler
+ 
+TODO:
+
+slow but sure sbs
+novel animasion visualisasion
+direct surface drawing (thread-safe)
+parameter zoom/transform
+
+http://www.jlekstrand.net/jason/projects/wayland/transforms/
+http://www.chaosreigns.com/wayland/weston/

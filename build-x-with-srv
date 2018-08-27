@@ -1,0 +1,5 @@
+echo "https://wayland.freedesktop.org/xserver.html"
+
+ ./autogen.sh --prefix=/usr/X11 --sysconfdir=/etc --localstatedir=/var --disable-static --disable-docs --disable-devel-docs \
+  --enable-xwayland --disable-xvfb --disable-xnest \
+  --disable-xquartz --disable-xwin

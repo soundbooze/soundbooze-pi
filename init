@@ -1,0 +1,12 @@
+#!/bin/sh
+
+fsck /dev/mmcblk0p1
+ifup wlan0
+
+P=1
+while [ $P -eq 1 ]
+do
+  ping -c 1 192.168.5.1 > /dev/null 2> /dev/null; P=$?
+done
+
+ntpdate && ntpdate

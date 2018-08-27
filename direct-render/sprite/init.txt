@@ -1,0 +1,6 @@
+https://gigi.nullneuron.net/gigilabs/converting-an-image-to-negative-using-sdl2/
+http://lazyfoo.net/SDL_tutorials/lesson28/index.php
+https://wiki.libsdl.org/SDL_RenderDrawLines
+https://gigi.nullneuron.net/gigilabs/drawing-lines-with-sdl2/
+
+https://github.com/aubio/aubio/blob/master/examples/aubiomfcc.c

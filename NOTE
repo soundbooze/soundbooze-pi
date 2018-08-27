@@ -1,0 +1,93 @@
+libdrm 
+------
+configure disable intel radeon
+
+fftw3f
+---
+--enable-float
+
+gcc gfortran
+----------------
+ '--prefix=/root/gcc-7.2.0/gcc-build/' '--disable-bootstrap' '--with-float=hard' '--enable-languages=c,fortran,lto'\"
+
+R
+--
+export LD_LIBRARY_PATH
+ln gfortran f77
+
+mesa
+----
+./configure --prefix=/usr --sysconfdir=/etc --enable-texture-float --enable-osmesa --with-gallium-drivers=vc4 --without-dri-drivers --with-platforms="x11,drm,wayland" --enable-glx --enable-dri --enable-dri3
+make 
+make install
+
+-- freeglut 2.8.1 --with-x rm -rf demos/ [Makefile configure -- remove progs demos]
+
+x11
+====
+add: xrandr, xmodmap, xset, xsetroot, xsetpointer, xcb-util
+input: [x doc dirver page] xf86-input-evdev xf86-input-libinput
+
+pilfs wayland/weston
+---------------------
+
+weston
+./configure --prefix=/usr --enable-xwayland --enable-x11-compositor --enable-wayland-compositor --enable-clients --enable-weston-launch --enable-demo-clients-install --enable-simple-egl-clients
+
+xorgserver
+-----------
+xkbcomp
+plus read doc lfs/pilfs
+./configure $XORG_CONFIG --enable-install-setuid --enable-suid-wrapper --disable-systemd-logind --with-xkb-output=/var/lib/xkb --enable-xwayland --disable-xorg --disable-xvfb --disable-xnest --disable-xquartz -disable-glx && make && make install 
+
+extra err
+---------
+CC = gcc `pkg-config --libs --cflags x11` 
+configure LD_LIBRARY_PATH PKG_CONFIG_PATH else force linking/include
+
+gtk
+----
+configure = change cairo-xlib to cairo
+or disable -enable-x11-backend
+
+you didn't have gobject-introspection installed when you built gdk-pixbuf
+must be built with FreeType-2.8.1 using HarfBuzz-1.7.4
+
+aubio
+-----
+
+Makefile: DESTDIR:=/
+
+
+GDK_BACKEND=wayland
+
+# Start the D-Bus session daemon
+eval `dbus-launch`
+export DBUS_SESSION_BUS_ADDRESS
+
+# Kill the D-Bus session daemon
+kill $DBUS_SESSION_BUS_PID
+
+cli-visualizer
+Makefile: -ltinfo
+
+LIBS += `pkg-config --libs ncursesw` #-ltinfo
+
+# pulse
+exit-idle-time = -1
+
+# quiet
+
+.hushlogin
+rc : dmesg --console-off
+inittab :  -n -o "-f root" --noclear --noissue t
+cmdline: tty3  loglevel=0 
+
+disable ipv6
+============
+/etc/modprobe.d/ipv6.conf
+
+alias net-pf-10 off
+alias ipv6 off
+options ipv6 disable_ipv6=1
+blacklist ipv6
