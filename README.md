@@ -40,3 +40,7 @@ dtoverlay=pi3-disable-bt
 # pilfs
 
 http://intestinate.com/pilfs/
+
+## TODO
+
+- extreme optimisation
