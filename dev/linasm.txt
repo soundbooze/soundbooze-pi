@@ -9,3 +9,9 @@ vim /usr/local/include/Array.h +3125
 --linking
 
 gcc test.c -o test /usr/local/lib/liblinasm.so
+
+
+---------- extreme minimalist alacarte
+
+ build/fasm source/Array.asm array.o
+ g++ test.cpp -o test array.o
