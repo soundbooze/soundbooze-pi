@@ -1,3 +1,11 @@
 http://linasm.sourceforge.net/docs/dsp/filter.php#freq
 
 standard make/install
+
+--fix funcname conflict
+
+vim /usr/local/include/Array.h +3125
+
+--linking
+
+gcc test.c -o test /usr/local/lib/liblinasm.so
