@@ -1,0 +1,3 @@
+http://linasm.sourceforge.net/docs/dsp/filter.php#freq
+
+standard make/install
