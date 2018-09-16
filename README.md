@@ -44,4 +44,4 @@ http://intestinate.com/pilfs/
 ## TODO
 
 - extreme optimisation
-- console looper
+
