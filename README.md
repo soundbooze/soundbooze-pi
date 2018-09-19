@@ -43,5 +43,5 @@ http://intestinate.com/pilfs/
 
 ## TODO
 
-- extreme optimisation
+- extreme optimisation, cmd line
 
