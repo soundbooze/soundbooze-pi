@@ -1,5 +1,0 @@
-numpy, sympy, ipython, matplotlib, pandas, cython
-mock, tensorflow
-
-lapack/blas - scipy, scikit-learn, orange
-
