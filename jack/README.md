@@ -3,4 +3,11 @@
 
 #### (Guitarix) hfb.cc 
 
-ported from c++
+ported from c++ to c (--)
+
+#### TODO
+
+- amp
+- noise reduction  
+- convolver
+- calf reverb / delay
