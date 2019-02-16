@@ -1,6 +1,6 @@
 
-## Guitarix 
+## Direct native Jack client
 
-#### hfb.cc 
+#### (Guitarix) hfb.cc 
 
 ported from c++
