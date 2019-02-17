@@ -12,4 +12,3 @@ faust ported from c++ to c (--)
 - amp
 - noise reduction  
 - convolver
-- calf reverb / delay
