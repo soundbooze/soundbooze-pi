@@ -5,7 +5,7 @@
 
 #### (Guitarix)  
 
-faust ported from c++ to c (--)
+[faust] ported from c++ to c (--)
 
 #### TODO
 
