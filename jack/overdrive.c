@@ -114,6 +114,8 @@ main (int argc, char *argv[])
     exit (1);
   }
 
+  init_overdrive();
+
   sleep (-1);
 
   jack_client_close (client);
