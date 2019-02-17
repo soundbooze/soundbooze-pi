@@ -9,5 +9,4 @@
 
 #### TODO
 
-- noise reduction  
 - convolver
