@@ -10,3 +10,7 @@
 ![alt text](https://raw.githubusercontent.com/soundbooze/soundbooze-pi/master/jack/tube.png "Home")
 
 
+#### TODO (generative)
+
+- tube style transfer
+- impulse style transfer
