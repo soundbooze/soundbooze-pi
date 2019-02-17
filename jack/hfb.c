@@ -90,7 +90,6 @@ int
 process (jack_nframes_t nframes, void *arg)
 {
   jack_default_audio_sample_t *input1_in, *input2_in, *output1_out, *output2_out;
-  int len = sizeof (jack_default_audio_sample_t) * nframes;
 
   input1_in = jack_port_get_buffer (input_port1, nframes);
   output1_out = jack_port_get_buffer (output_port1, nframes);
@@ -98,14 +97,14 @@ process (jack_nframes_t nframes, void *arg)
   input2_in = jack_port_get_buffer (input_port2, nframes);
   output2_out = jack_port_get_buffer (output_port2, nframes);
 
-  jack_default_audio_sample_t hfb_l[len];
-  jack_default_audio_sample_t hfb_r[len];
+  jack_default_audio_sample_t hfb_l[nframes];
+  jack_default_audio_sample_t hfb_r[nframes];
 
-  compute_hfb(len, input1_in, hfb_l);
-  compute_hfb(len, input2_in, hfb_r);
+  compute_hfb(nframes, input1_in, hfb_l);
+  compute_hfb(nframes, input2_in, hfb_r);
 
-  memcpy (output1_out, hfb_l, len);
-  memcpy (output2_out, hfb_r, len);
+  memcpy (output1_out, hfb_l, sizeof (jack_default_audio_sample_t) * nframes);
+  memcpy (output2_out, hfb_r, sizeof (jack_default_audio_sample_t) * nframes);
 
   return 0;      
 }
