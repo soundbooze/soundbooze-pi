@@ -9,6 +9,5 @@
 
 #### TODO
 
-- amp
 - noise reduction  
 - convolver
