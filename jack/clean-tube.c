@@ -24,9 +24,9 @@ max (float a, float b) {
 
 inline void 
 compute_tube3 (int count, float *input, float *output) {
-  float dist = 1.28;
+  float dist = 1.08;
   float g = 1.3;
-  float q = 0.875;
+  float q = 0.830;
   float fSlow0 = powf((0 - q), 3);
   float fSlow1 = powf(10,dist);
   float fSlow2 = (fSlow1 * (0 - fSlow0));
