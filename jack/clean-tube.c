@@ -11,8 +11,8 @@
 
 #include <jack/jack.h>
 
-jack_port_t *input_port1, *input_port2;
-jack_port_t *output_port1, *output_port2;
+jack_port_t *input_port1; /*, *input_port2; */
+jack_port_t *output_port1; /*, *output_port2; */
 jack_client_t *client;
 
 inline float 
@@ -52,22 +52,21 @@ compute_tube3 (int count, float *input, float *output) {
 int
 process (jack_nframes_t nframes, void *arg)
 {
-  jack_default_audio_sample_t *input1_in, *input2_in, *output1_out, *output2_out;
+  jack_default_audio_sample_t *input1_in, /**input2_in,*/ *output1_out; /*, *output2_out;*/
 
   input1_in = jack_port_get_buffer (input_port1, nframes);
   output1_out = jack_port_get_buffer (output_port1, nframes);
 
+  /*
   input2_in = jack_port_get_buffer (input_port2, nframes);
   output2_out = jack_port_get_buffer (output_port2, nframes);
+  */
 
-  jack_default_audio_sample_t clean_tube_l[nframes];
-  jack_default_audio_sample_t clean_tube_r[nframes];
+  jack_default_audio_sample_t clean_tube[nframes];
 
-  compute_tube3(nframes, input1_in, clean_tube_l);
-  compute_tube3(nframes, input2_in, clean_tube_r);
+  compute_tube3(nframes, input1_in, clean_tube);
 
-  memcpy (output1_out, clean_tube_l, sizeof (jack_default_audio_sample_t) * nframes);
-  memcpy (output2_out, clean_tube_r, sizeof (jack_default_audio_sample_t) * nframes);
+  memcpy (output1_out, clean_tube, sizeof (jack_default_audio_sample_t) * nframes);
 
   return 0;      
 }
@@ -112,19 +111,23 @@ main (int argc, char *argv[])
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsInput, 0);
 
+  /*
   input_port2 = jack_port_register (client, "input2",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsInput, 0);
+  */
 
   output_port1 = jack_port_register (client, "output1",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsOutput, 0);
 
+  /*
   output_port2 = jack_port_register (client, "output2",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsOutput, 0);
+  */
 
-  if ((input_port1 == NULL) || (output_port1 == NULL) || (input_port2 == NULL) || (output_port2 == NULL)) {
+  if ((input_port1 == NULL) || (output_port1 == NULL) /*|| (input_port2 == NULL) || (output_port2 == NULL)*/ ) {
     fprintf(stderr, "no more JACK ports available\n");
     exit (1);
   }
