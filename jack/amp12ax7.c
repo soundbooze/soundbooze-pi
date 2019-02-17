@@ -1203,6 +1203,12 @@ compute_amp (int count, float *input, float *output) {
 			fRec43[0] = ((fConst13 * fRec43[1]) + (fConst12 * ((fConst9 * fRec44[0]) + (fConst10 * fRec44[1]))));
 			output[i] = (float)(fRec43[0] + fRec0[0]);
 
+      /* noise gate */
+
+      output[i] *= 0.132;
+
+      /* reset */
+
 			fRec43[1] = fRec43[0];
 			fRec44[2] = fRec44[1]; fRec44[1] = fRec44[0];
 			fRec45[1] = fRec45[0];
