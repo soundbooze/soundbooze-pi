@@ -3,7 +3,7 @@
 
 - Pure console, 0-gui
 
-#### (Guitarix)  
+#### (Guitarix 0.37.3)  
 
 [faust] ported from c++ to c (--)
 
