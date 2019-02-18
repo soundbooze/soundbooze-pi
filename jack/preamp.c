@@ -51,8 +51,6 @@ compute_preamp (int count, float *input, float *output) {
   }
 }
 
-
-
 int
 process (jack_nframes_t nframes, void *arg)
 {
