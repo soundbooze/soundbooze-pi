@@ -75,19 +75,19 @@ main (int argc, char *argv[])
 
   jack_on_shutdown (client, jack_shutdown, 0);
 
-  input_port1 = jack_port_register (client, "input1",
+  input_port1 = jack_port_register (client, "in1",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsInput, 0);
 
-  input_port2 = jack_port_register (client, "input2",
+  input_port2 = jack_port_register (client, "in2",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsInput, 0);
 
-  output_port1 = jack_port_register (client, "output1",
+  output_port1 = jack_port_register (client, "out1",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsOutput, 0);
 
-  output_port2 = jack_port_register (client, "output2",
+  output_port2 = jack_port_register (client, "out2",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsOutput, 0);
 
