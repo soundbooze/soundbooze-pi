@@ -11,8 +11,8 @@
 
 #include <jack/jack.h>
 
-jack_port_t *input_port1, *input_port2;
-jack_port_t *output_port1, *output_port2;
+jack_port_t *input_port;
+jack_port_t *output_port;
 jack_client_t *client;
 
 double fConst0;
@@ -46,11 +46,11 @@ max(double a, double b) {
 }
 
 inline void 
-init_hfb (double samplingFreq)
+init_hfb (uint32_t samplingFreq)
 {
   int i = 0;
 
-	fConst0 = (double) min(1.92e+05, max(1.0, samplingFreq));
+	fConst0 = (double) min(1.92e+05, max(1.0, (double) samplingFreq));
 	fConst1 = (2.36551040815034e-10 * fConst0);
 	fConst2 = (1.32257544516629e-08 + fConst1);
 	fConst3 = (1.17023754306854e-09 * fConst0);
@@ -68,7 +68,7 @@ init_hfb (double samplingFreq)
 }
 
 inline void 
-compute_hfb (int count, float *input0, float *output0)
+compute_hfb (int count, float *input, float *output)
 {
 	double 	fSlow0 = (0.007000000000000006 * (1 - 0.28));
 	double 	fSlow1 = (0.007000000000000006 * 0.32);
@@ -78,8 +78,8 @@ compute_hfb (int count, float *input0, float *output0)
 		fRec1[0] = (fSlow1 + (0.993 * fRec1[1]));
 		double fTemp0 = (4.40858481722098e-05 + (fConst0 * (7.88503469383447e-07 + ((fRec1[0] * (fConst6 + (fConst4 * fRec1[0]))) + (fConst2 * fRec0[0])))));
 		double fTemp1 = (fConst0 * ((fRec1[0] * ((5.12666523663255e-23 * fRec1[0]) - 1.59041010538546e-09)) - (3.18082021077091e-10 * fRec0[0])));
-		fRec2[0] = ((double)input0[i] - (((fRec2[1] * (8.81716963444196e-05 + (fConst10 * ((fRec1[0] * ((2.34047508613708e-09 * fRec1[0]) - 2.36551040815034e-09)) - (4.73102081630068e-10 * fRec0[0]))))) + (fRec2[2] * (4.40858481722098e-05 + (fConst0 * (((fRec1[0] * (fConst9 + (fConst8 * fRec1[0]))) + (fConst7 * fRec0[0])) - 7.88503469383447e-07))))) / fTemp0));
-		output0[i] = (float)(fConst0 * (((fConst0 * (fRec2[1] * ((6.36164042154183e-10 * fRec0[0]) + (fRec1[0] * (3.18082021077092e-09 - (1.02533304732651e-22 * fRec1[0])))))) + ((fRec2[0] * (fTemp1 - 1.06027340359031e-06)) + (fRec2[2] * (1.06027340359031e-06 + fTemp1)))) / fTemp0));
+		fRec2[0] = ((double)input[i] - (((fRec2[1] * (8.81716963444196e-05 + (fConst10 * ((fRec1[0] * ((2.34047508613708e-09 * fRec1[0]) - 2.36551040815034e-09)) - (4.73102081630068e-10 * fRec0[0]))))) + (fRec2[2] * (4.40858481722098e-05 + (fConst0 * (((fRec1[0] * (fConst9 + (fConst8 * fRec1[0]))) + (fConst7 * fRec0[0])) - 7.88503469383447e-07))))) / fTemp0));
+		output[i] = (float)(fConst0 * (((fConst0 * (fRec2[1] * ((6.36164042154183e-10 * fRec0[0]) + (fRec1[0] * (3.18082021077092e-09 - (1.02533304732651e-22 * fRec1[0])))))) + ((fRec2[0] * (fTemp1 - 1.06027340359031e-06)) + (fRec2[2] * (1.06027340359031e-06 + fTemp1)))) / fTemp0));
 		fRec2[2] = fRec2[1]; fRec2[1] = fRec2[0];
 		fRec1[1] = fRec1[0];
 		fRec0[1] = fRec0[0];
@@ -89,22 +89,16 @@ compute_hfb (int count, float *input0, float *output0)
 int
 process (jack_nframes_t nframes, void *arg)
 {
-  jack_default_audio_sample_t *input1_in, *input2_in, *output1_out, *output2_out;
+  jack_default_audio_sample_t *input_in, *output_out;
 
-  input1_in = jack_port_get_buffer (input_port1, nframes);
-  output1_out = jack_port_get_buffer (output_port1, nframes);
+  input_in = jack_port_get_buffer (input_port, nframes);
+  output_out = jack_port_get_buffer (output_port, nframes);
 
-  input2_in = jack_port_get_buffer (input_port2, nframes);
-  output2_out = jack_port_get_buffer (output_port2, nframes);
+  jack_default_audio_sample_t hfb[nframes];
 
-  jack_default_audio_sample_t hfb_l[nframes];
-  jack_default_audio_sample_t hfb_r[nframes];
+  compute_hfb(nframes, input_in, hfb);
 
-  compute_hfb(nframes, input1_in, hfb_l);
-  compute_hfb(nframes, input2_in, hfb_r);
-
-  memcpy (output1_out, hfb_l, sizeof (jack_default_audio_sample_t) * nframes);
-  memcpy (output2_out, hfb_r, sizeof (jack_default_audio_sample_t) * nframes);
+  memcpy (output_out, hfb, sizeof (jack_default_audio_sample_t) * nframes);
 
   return 0;      
 }
@@ -145,23 +139,15 @@ main (int argc, char *argv[])
 
   jack_on_shutdown (client, jack_shutdown, 0);
 
-  input_port1 = jack_port_register (client, "input1",
+  input_port = jack_port_register (client, "input",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsInput, 0);
 
-  input_port2 = jack_port_register (client, "input2",
-      JACK_DEFAULT_AUDIO_TYPE,
-      JackPortIsInput, 0);
-
-  output_port1 = jack_port_register (client, "output1",
+  output_port = jack_port_register (client, "output",
       JACK_DEFAULT_AUDIO_TYPE,
       JackPortIsOutput, 0);
 
-  output_port2 = jack_port_register (client, "output2",
-      JACK_DEFAULT_AUDIO_TYPE,
-      JackPortIsOutput, 0);
-
-  if ((input_port1 == NULL) || (output_port1 == NULL) || (input_port2 == NULL) || (output_port2 == NULL)) {
+  if ((input_port == NULL) || (output_port == NULL)) {
     fprintf(stderr, "no more JACK ports available\n");
     exit (1);
   }
