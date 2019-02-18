@@ -28,7 +28,7 @@ $ rm -f compile.sh
 - impulse style transfer
 - smooth transition
 - parallel
-
+- characteristic-learning {parameter || port-connection}-wise
 ___
 
 ## License
