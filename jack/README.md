@@ -17,6 +17,11 @@ $ ./compile.sh
 $ rm -f compile.sh
 ```
 
+#### JACKD
+
+- Frames / Period : 256
+- Periods / Buffer : 3
+
 #### TODO (generative)
 
 - tube style transfer
