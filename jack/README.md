@@ -15,3 +15,4 @@
 - tube style transfer
 - impulse style transfer
 - smooth transition
+- parallel
