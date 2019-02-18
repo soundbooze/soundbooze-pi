@@ -29,7 +29,7 @@ $ rm -f compile.sh
 - tube style transfer
 - impulse style transfer
 - smooth transition
-- parallel, sensoric-param-handling
+- parallel, sensoric-param-handling, shred-event - param-response
 - characteristic-learning {parameter || port-connection}-wise
 ___
 
