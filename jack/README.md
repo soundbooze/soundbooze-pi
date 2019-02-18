@@ -28,3 +28,9 @@ $ rm -f compile.sh
 - impulse style transfer
 - smooth transition
 - parallel
+
+___
+
+## License
+
+UDUK™ Free as an AIR License
