@@ -1,7 +1,7 @@
 
 ## Direct native Jack client
 
-- Pure console, 0-gui
+- Pure console, 0-gui {alacarte}
 
 #### (Guitarix 0.37.3)  
 
