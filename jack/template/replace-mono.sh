@@ -51,3 +51,5 @@ max (float a, float b) {
 " > minmax.c
 
 cat minmax.c strip.c > $1
+
+rm -f strip.c minmax.c
