@@ -26,7 +26,6 @@ float 	fslider1;
 float 	fRec0[2];
 float 	fentry1;
 float 	fentry2;
-int fSamplingFreq;
 
 inline float 
 min(float a, float b) {
@@ -48,11 +47,11 @@ inline void init_compressor (uint32_t samplingFreq) {
   fConst2 = (1 - fConst1);
   fConst3 = (1.0f / fConst0);
 
-  fslider0 = 0.5f;   // ("release", &fslider0, 0.5f, 0.0f, 1e+01f, 0.01f);
-  fslider1 = 0.002f; // ("attack", &fslider1, 0.002f, 0.0f, 1.0f, 0.001f)
-  fentry0 = -2e+01f; // ("threshold", &fentry0, -2e+01f, -96.0f, 1e+01f, 0.1f); 
-  fentry1 = 3.0f;    // ("knee", &fentry1, 3.0f, 0.0f, 2e+01f, 0.1f);
-  fentry2 = 2.0f;    // ("ratio", &fentry2, 2.0f, 1.0f, 2e+01f, 0.1f);
+  fslider0 = 0.5f;   // ("release", 0.5f, 0.0f, 1e+01f, 0.01f);
+  fslider1 = 0.002f; // ("attack", 0.002f, 0.0f, 1.0f, 0.001f)
+  fentry0 = -2e+01f; // ("threshold", -2e+01f, -96.0f, 1e+01f, 0.1f); 
+  fentry1 = 3.0f;    // ("knee", 3.0f, 0.0f, 2e+01f, 0.1f);
+  fentry2 = 2.0f;    // ("ratio", 2.0f, 1.0f, 2e+01f, 0.1f);
 
   for (int i=0; i<2; i++) fRec1[i] = 0;
   for (int i=0; i<2; i++) fRec0[i] = 0;
@@ -75,13 +74,10 @@ compute_compressor (int count, float *input, float *output) {
     float fTemp2 = max((float)0, (fSlow3 + ((20 * log10f(fRec0[0])) - fSlow0)));
     float fTemp3 = min((float)1, max((float)0, (fSlow4 * fTemp2)));
     output[i] = (float)(fTemp0 * powf(10,(fSlow6 * ((fTemp2 * fTemp3) / (1 - (fSlow5 * fTemp3))))));
-    // post processing
     fRec0[1] = fRec0[0];
     fRec1[1] = fRec1[0];
   }
 }
-
-
 
 int
 process (jack_nframes_t nframes, void *arg)
