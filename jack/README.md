@@ -1,6 +1,8 @@
 
 ## Alacarte Stack
 
+... direct alsa [uduk.c]
+
 #### Direct native Jack client
 
 - Pure console, 0-gui 
